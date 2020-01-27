@@ -1,0 +1,13 @@
+<form *ngIf="!fileUploaded">
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Upload PDF</label>
+        <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+</form>
+<form>
+    <div *ngFor="let item of dummyPDFObj | keyvalue: originalOrder">
+        <div *ngIf="item.value[0].type == 'string'">
+            {{item.key}}
+        </div>
+    </div> 
+</form>
