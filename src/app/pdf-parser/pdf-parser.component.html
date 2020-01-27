@@ -4,7 +4,7 @@
         <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
     </div>
 </form>
-<form>
+<form *ngIf='fileUploaded'>
     <div *ngFor="let item of dummyPDFObj | keyvalue: originalOrder">
         <div >
             
