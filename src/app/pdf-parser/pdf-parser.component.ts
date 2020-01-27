@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+declare var minipdf: any;
+
 
 @Component({
   selector: 'app-pdf-parser',
@@ -13,113 +15,34 @@ export class PdfParserComponent implements OnInit {
   }
 
   fileUploaded = false;
+  parsedPDF = {};
 
-  dummyPDFObj = {
-    "Given Name Text Box": [
-      {
-        "type": "string"
-      }
-    ],
-    "Family Name Text Box": [
-      {
-        "type": "string"
-      }
-    ],
-    "House nr Text Box": [
-      {
-        "type": "string"
-      }
-    ],
-    "Address 2 Text Box": [
-      {
-        "type": "string"
-      }
-    ],
-    "Postcode Text Box": [
-      {
-        "type": "string"
-      }
-    ],
-    "Country Combo Box": [
-      {
-        "type": "select",
-        "options": [
-          "USA",
-          "UK",
-          "Canada"
-        ]
-      }
-    ],
-    "Height Formatted Field": [
-      {
-        "type": "string"
-      }
-    ],
-    "City Text Box": [
-      {
-        "type": "string"
-      }
-    ],
-    "Driving License Check Box": [
-      {
-        "type": "boolean"
-      }
-    ],
-    "Favourite Colour List Box": [
-      {
-        "type": "select",
-        "options": [
-          "Black",
-          "Brown",
-          "Red",
-          "Orange",
-          "Yellow",
-          "Green",
-          "Blue",
-          "Violet",
-          "Grey",
-          "White"
-        ]
-      }
-    ],
-    "Language 1 Check Box": [
-      {
-        "type": "boolean"
-      }
-    ],
-    "Language 2 Check Box": [
-      {
-        "type": "boolean"
-      }
-    ],
-    "Language 3 Check Box": [
-      {
-        "type": "boolean"
-      }
-    ],
-    "Language 4 Check Box": [
-      {
-        "type": "boolean"
-      }
-    ],
-    "Language 5 Check Box": [
-      {
-        "type": "boolean"
-      }
-    ],
-    "Gender List Box": [
-      {
-        "type": "select",
-        "options": [
-          "Man",
-          "Woman"
-        ]
-      }
-    ],
-    "Address 1 Text Box": [
-      {
-        "type": "string"
-      }
-    ]
+
+  initiateParse(e){
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    var _this = this
+		reader.onload = function() {
+			_this.on_file(file.name, reader.result);
+    };
+		reader.readAsArrayBuffer(file);
+  }
+
+  current_buffer = 'string'
+
+  on_file(filename, buf) {
+    this.current_buffer = buf;
+
+    this.list(this.current_buffer);
+  }
+
+  list(buf) {
+    try {
+      this.parsedPDF = minipdf.list_fields(buf);
+      this.fileUploaded = true;
+    } catch (e) {
+      // on_error(e);
+      return;
+    }
   }
 }

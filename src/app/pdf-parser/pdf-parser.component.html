@@ -1,7 +1,7 @@
 <form *ngIf="!fileUploaded">
     <div class="form-group">
-        <label for="exampleFormControlFile1">Upload PDF</label>
-        <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+        <label for="PDFUpload" ngChange='initiateParse($event)'>Upload PDF</label>
+        <input type="file" name="file" class="form-control-file" id="PDFUpload">
     </div>
 </form>
 <form *ngIf='fileUploaded'>
