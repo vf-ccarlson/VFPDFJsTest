@@ -6,8 +6,26 @@
 </form>
 <form>
     <div *ngFor="let item of dummyPDFObj | keyvalue: originalOrder">
-        <div *ngIf="item.value[0].type == 'string'">
-            {{item.key}}
+        <div >
+            
+        </div>
+        <div class="form-group" *ngIf="item.value[0].type == 'string'">
+            <label for="item.key">{{item.key}}</label>
+            <input type="text" class="form-control" id="item.key" placeholder="{{item.key}}">
+        </div>
+        <div class="form-group col-md-4" *ngIf="item.value[0].type == 'select'">
+            <label for="item.key">{{item.key}}</label>
+            <select id="item.key" class="form-control">
+                <option *ngFor="let option of item.value[0].options">{{option}}</option>
+            </select>
+        </div>
+        <div class="form-group" *ngIf="item.value[0].type == 'boolean'">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="item.key">
+                <label class="form-check-label" for="item.key">
+                  {{item.key}}
+                </label>
+            </div>
         </div>
     </div> 
 </form>
