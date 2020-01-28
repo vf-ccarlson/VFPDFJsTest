@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-// import { miniPdf } from '../../pdfParse/minipdf.js';
-import * as miniPdf from '../../pdfParse/minipdf.js'
 declare var minipdf: any;
-
+declare var pdfform: any;
 
 
 @Component({
@@ -21,58 +19,32 @@ export class PdfParserComponent implements OnInit {
   fileUploaded = false;
   parsedPDF = {};
   file: File;
-  fileBlob: Blob;
+  fileToUpload: File = null;
 
-
-  initiateParse(e: NgForm) {
-    console.log('hittin da initiate');
-    console.log(e);
-    var file = this.file;
+  //UPLOAD FILE
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
     var reader = new FileReader();
     var _this = this
     reader.onload = function () {
-      _this.on_file(file.name, reader.result);
+      //BEGIN PDF PARSING
+      _this.on_file(_this.fileToUpload.name, reader.result);
     };
-    reader.readAsArrayBuffer(file);
-    console.log(file);
+    reader.readAsArrayBuffer(this.fileToUpload as Blob);
   }
 
-  current_buffer = 'string'
-
   on_file(filename, buf) {
-    this.current_buffer = buf;
-
-    this.list(this.current_buffer);
+    this.list(buf);
   }
 
   list(buf) {
     try {
-      this.parsedPDF = miniPdf.list_fields(buf);
+      this.parsedPDF = pdfform(minipdf).list_fields(buf);
+      console.log(this.parsedPDF);
       this.fileUploaded = true;
     } catch (e) {
-      // on_error(e);
+      console.log(e);
       return;
     }
-  }
-
-  changeFile(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
-
-  uploadFile(event) {
-    if (event.target.value) {
-      const file = event.target.files[0];
-      const type = file.type;
-      this.changeFile(file).then((base64: string): any => {
-        console.log(base64);
-        this.fileBlob = this.b64Blob([base64], type);
-        console.log(this.fileBlob)
-      });
-    } else alert('Nothing')
   }
 }

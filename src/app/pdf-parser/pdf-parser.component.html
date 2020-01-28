@@ -1,15 +1,9 @@
-<form *ngIf="!fileUploaded" #e="ngForm" (ngSubmit)="uploadFile(e)" novalidate>
-    <div class="form-group">
-        <label for="PDFUpload" ng-change='uploadFile($event)'>Upload PDF</label>
-        <input type="file" name="file" [(ngModel)]="rawPdf" class="form-control-file" id="PDFUpload">
-    </div>
-    <button>Submit</button>
-</form>
+<div class="form-group" *ngIf="!fileUploaded">
+    <label for="file">Choose File</label>
+    <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+</div>
 <form *ngIf='fileUploaded'>
-    <div *ngFor="let item of dummyPDFObj | keyvalue: originalOrder">
-        <div>
-
-        </div>
+    <div *ngFor="let item of parsedPDF | keyvalue: originalOrder">
         <div class="form-group" *ngIf="item.value[0].type == 'string'">
             <label for="item.key">{{item.key}}</label>
             <input type="text" class="form-control" id="item.key" placeholder="{{item.key}}">

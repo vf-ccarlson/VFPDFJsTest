@@ -26,7 +26,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./src/pdfParse/minipdf.js",
+              "./src/pdfParse/pdfform.js",
+              "./src/pdfParse/customlibs/pdf.worker.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,7 +95,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./src/pdfParse/minipdf.js",
+              "./src/pdfParse/pdfform.js",
+              "./src/pdfParse/customlibs/pdf.worker.js"
+            ]
           }
         },
         "lint": {
