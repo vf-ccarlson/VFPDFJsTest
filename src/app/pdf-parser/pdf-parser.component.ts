@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 declare var minipdf: any;
 declare var pdfform: any;
 
@@ -16,21 +16,30 @@ export class PdfParserComponent implements OnInit {
   ngOnInit() {
   }
 
+  testForm: FormGroup;
+  payload = {};
+
+  testSubmit(){
+    this.payload = this.testForm.value;
+    console.log(this.payload);
+  }
+
+  //Create the varialbes and objects we will need across all functions
   fileUploaded = false;
   parsedPDF = {};
   file: File;
-  fileToUpload: File = null;
+  fileToParse: File = null;
 
-  //UPLOAD FILE
+  //RETRIEVE FILE TO CONVERT
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    this.fileToParse = files.item(0);
     var reader = new FileReader();
     var _this = this
     reader.onload = function () {
       //BEGIN PDF PARSING
-      _this.on_file(_this.fileToUpload.name, reader.result);
+      _this.on_file(_this.fileToParse.name, reader.result);
     };
-    reader.readAsArrayBuffer(this.fileToUpload as Blob);
+    reader.readAsArrayBuffer(this.fileToParse as Blob);
   }
 
   on_file(filename, buf) {
