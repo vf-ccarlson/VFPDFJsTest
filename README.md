@@ -1,12 +1,14 @@
 # pdfform.js
 
+This is a quick technical example of how Verified First plans to parse PDFs into HTML forms for applicant invite.
+
 Fill out PDF forms in JavaScript, both in the browser or on the server.
 
 pdfform.js can function with a slightly customized version of [pdf.js](https://github.com/mozilla/pdf.js). However, due to the size and scope of PDF.js (1600KB+), by default a built-in PDF library (called minipdf) is used.
 
 ## Installation
 
-To test, download/clone this repository and run `npm i` and `ng serve`
+To test, download/clone this repository and run `npm i` and `ng serve` in command line.
 
 ## Usage
 
@@ -15,6 +17,8 @@ Currently, PDFs are parsed by running `handleFileInput` in `pdf-parser.component
 When the form is submitted, `testSubmit` takes all inputs, converts the object to a new object that can be read by `pdfform` to rebuild the original PDF with all filled in fields populated.
 
 Console logs will show the format of the parsedPDF object as well as how the final object should be formatted.
+
+To test, please [download an example PDF](http://foersom.com/net/HowTo/data/OoPdfFormExample.pdf) and upload. After parsing, fill in all inputs and click the submit button.
 
 ## Additional Plans
 
