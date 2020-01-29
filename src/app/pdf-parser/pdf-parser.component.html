@@ -4,7 +4,7 @@
 </div>
 <form *ngIf='fileUploaded'>
     <div class="row d-flex">
-        <div *ngFor="let item of parsedPDF | keyvalue: originalOrder" class="form-group col-md-4">
+        <div *ngFor="let item of parsedPDF | keyvalue" class="form-group col-md-4">
             <div *ngIf="item.value[0].type == 'string'">
                 <label for="{{item.key}}">{{item.key}}</label>
                 <input class="form-control" id="{{item.key}}" [(ngModel)]="item.value[1]" name="{{item.key}}">
