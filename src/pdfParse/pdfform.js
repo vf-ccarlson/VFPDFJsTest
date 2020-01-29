@@ -265,7 +265,7 @@ write_xref_stream: function(out, prev, root_ref) {
 },
 write_xref_table: function(out, prev, root_ref) {
 	var entries = this.entries.filter(function(e) {
-		return !e.is_free;
+		//return !e.is_free;
 	});
 	var size = 1 + entries.length;
 	out.write_str('xref\n');
