@@ -4,11 +4,9 @@ Fill out PDF forms in JavaScript, both in the browser or on the server.
 
 pdfform.js can function with a slightly customized version of [pdf.js](https://github.com/mozilla/pdf.js). However, due to the size and scope of PDF.js (1600KB+), by default a built-in PDF library (called minipdf) is used.
 
-The [online demo](https://phihag.github.io/pdfform.js/docs/demo.html) demonstrates *both* (not recommended in actual production).
-
 ## Installation
 
-To test, download/clone this repository and add `minipdf.js` and `pdfform.js` to your JavaScript files. You'll also need the [pako](https://github.com/nodeca/pako) library.
+To test, download/clone this repository and run `npm i` and `ng serve`
 
 ## Usage
 
@@ -26,4 +24,4 @@ Ideally, we would like to remove the need for a file input field, and simply hav
 
 Additionally, we will need to build a digital signature file at the end of `testSubmit()` that displays IP Address, full name, and date/time. This signature input will need to be added into the end of the dynamic form as well as any legal requirements to be determined at a later date. 
 
-For more details, have a look at the base code this is based on at [The following github repo](https://github.com/phihag/pdfform.js/blob/master/docs/demo.js).
+For more details, reference the base code this is based on at [the following github repo](https://github.com/phihag/pdfform.js/blob/master/docs/demo.js).
