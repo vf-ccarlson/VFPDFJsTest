@@ -1,27 +1,34 @@
-# VFPDFJsTest
+# pdfform.js
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
+Fill out PDF forms in pure JavaScript, both in the browser or on the server.
 
-## Development server
+pdfform.js can function with a slightly customized version of [pdf.js](https://github.com/mozilla/pdf.js). However, due to the size and scope of PDF.js (1600KB+), by default a built-in PDF library (called minipdf) is used.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The [online demo](https://phihag.github.io/pdfform.js/docs/demo.html) demonstrates *both* (not recommended in actual production).
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To use in a browser, download and serve [pdfform.minipdf.dist.js](https://raw.githubusercontent.com/phihag/pdfform.js/dist/dist/pdfform.minipdf.dist.js) (minipdf).
 
-## Build
+Alternatively, download/clone this repository and add `minipdf.js` and `pdfform.js` to your JavaScript files. You'll also need the [pako](https://github.com/nodeca/pako) library.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Usage
 
-## Running unit tests
+Simply call `transform` with the PDF file contents and the fields.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```html
+<!-- download from https://raw.githubusercontent.com/phihag/pdfform.js/dist/dist/pdfform.minipdf.dist.js -->
+<script src="downloaded/pdfform.minipdf.dist.js"></script>
+<script>
+var pdf_buf = ...; // load PDF into an ArrayBuffer, for example via XHR (see demo)
+var fields = {
+    'fieldname': ['value for fieldname[0]', 'value for fieldname[1]'],
+};
+var out_buf = pdfform().transform(pdf_buf, fields);
+// Do something with the resulting PDF file in out_buf
+</script>
+```
 
-## Running end-to-end tests
+There is also a `list_fields` function which allows you to list all available fields and their types.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+For more details, have a look at the [demo](https://phihag.github.io/pdfform.js/docs/demo.html) and its [JavaScript code](https://github.com/phihag/pdfform.js/blob/master/docs/demo.js).
