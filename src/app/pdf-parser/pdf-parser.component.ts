@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { element } from 'protractor';
+
 declare var minipdf: any;
 declare var pdfform: any;
 
@@ -11,22 +13,50 @@ declare var pdfform: any;
 })
 export class PdfParserComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
 
-  testForm: FormGroup;
-  payload = {};
-
+  
   testSubmit(){
-    this.payload = this.testForm.value;
-    console.log(this.payload);
+    var parsedPDFString = JSON.stringify(this.parsedPDF);
+    this.results = JSON.parse(parsedPDFString);
+    const keys = Object.keys(this.results);
+    keys.forEach(key => {
+      if(this.results[key].length == 2){
+        this.results[key].forEach(item => {
+          if((typeof item) != "string"){
+            console.log('This is not a string')
+            console.log(item)
+            var itemIndex = this.results[key].indexOf(item)
+            this.results[key].splice(itemIndex, 1);
+          }
+        });
+      } else {
+        delete this.results[key]
+      }
+    });
+    console.log(this.results);
+
+    var filled_pdf; // Uint8Array
+    try {
+      filled_pdf = pdfform(minipdf).transform(this.buffer, this.results);
+    } catch (e) {
+      console.log(e)
+    }
+  
+  
+    var blob = new Blob([filled_pdf], {type: 'application/pdf'});
+    var url = window.URL.createObjectURL(blob);
+    window.open(url)
   }
 
   //Create the varialbes and objects we will need across all functions
+  buffer;
   fileUploaded = false;
   parsedPDF = {};
+  results = {};
   file: File;
   fileToParse: File = null;
 
@@ -43,6 +73,7 @@ export class PdfParserComponent implements OnInit {
   }
 
   on_file(filename, buf) {
+    this.buffer = buf;
     this.list(buf);
   }
 

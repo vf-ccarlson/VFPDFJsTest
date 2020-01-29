@@ -2,28 +2,28 @@
     <label for="file">Choose File</label>
     <input type="file" id="file" (change)="handleFileInput($event.target.files)">
 </div>
-<form *ngIf='fileUploaded' (ngSubmit)="testSubmit()" [form]="testForm">
+<form *ngIf='fileUploaded'>
     <div class="row d-flex">
         <div *ngFor="let item of parsedPDF | keyvalue: originalOrder" class="form-group col-md-4">
             <div *ngIf="item.value[0].type == 'string'">
                 <label for="{{item.key}}">{{item.key}}</label>
-                <input class="form-control" [formGroup]="testForm" [formControlName]="item.key" [id]="item.key" [type]="item.value[0].type">
+                <input class="form-control" id="{{item.key}}" [(ngModel)]="item.value[1]" name="{{item.key}}">
             </div>
             <div *ngIf="item.value[0].type == 'select'">
                 <label for="{{item.key}}">{{item.key}}</label>
-                <select id="{{item.key}}" class="form-control">
+                <select id="{{item.key}}" class="form-control" [(ngModel)]="item.value[1]"  name="{{item.key}}">
                     <option *ngFor="let option of item.value[0].options">{{option}}</option>
                 </select>
             </div>
             <div *ngIf="item.value[0].type == 'boolean'">
                 <div class="form-check">
-                    <input ng-model="item.key" name="{{item.key}}" class="form-check-input" type="checkbox" id="{{item.key}}">
+                    <input name="{{item.key}}" class="form-check-input" type="checkbox" id="{{item.key}}" [(ngModel)]="item.value[1]">
                     <label class="form-check-label" for="{{item.key}}">
                         {{item.key}}
                     </label>
                 </div>
             </div>
         </div>
-        <button type="submit">Test Submit</button>
+        <button type="submit" (click)="testSubmit()">Test Submit</button>
     </div>
 </form>
