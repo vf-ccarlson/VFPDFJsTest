@@ -23,6 +23,14 @@
                     </label>
                 </div>
             </div>
+            <div *ngIf="item.value[0].type == 'radio'">
+                <div class="form-check">
+                    <input name="{{option.key}}" class="form-check-input" type="radio" name="hgjfjfhgy" id="{{option.key}}">
+                    <label class="form-check-label" for="{{option.key}}">
+                        {{option.value}}
+                    </label>
+                </div>
+            </div>
         </div>
         <button type="submit" (click)="testSubmit()">Test Submit</button>
     </div>
